@@ -1,3 +1,4 @@
+import java.util.Date;
 class Direccion{
     public Direccion(String a){
         direccion = a;
@@ -48,8 +49,61 @@ class Articulo{
     private String descripcion;
     private float precio;
 }
-
-
+abstract class Pago{
+    private float monto;
+    private Date fecha;
+    public Pago(float m,Date f){
+        monto=m;
+        fecha=f;
+    }
+    public float getMonto(){
+        return monto;
+    }
+    public Date getFecha(){
+        return fecha;
+    }
+}
+/*
+class Efectivo extends Pago{
+    private OrdenCompra costo;             //Decidi usar una instanciaa de OrdenCompra para poder sacar el coste en cuestiony restarle a monto para obtener el vuelto.(falta funcion OrdenCompra)
+    public Efectivo(OrdenCompra co){
+        costo=co;
+    }
+    public float calcDevolucion(float monto, OrdenCompra costo ){
+        return super.monto - OrdenCompra.calcPrecio();
+        
+    }
+ }
+*/
+class Transferencia extends Pago{
+    private String banco;
+    private String numCuenta;
+    public Transferencia(String b, String c){
+        banco=b;
+        numCuenta=c;
+    }
+    public String getBanco(){
+        return banco;
+    }
+    public String getNumCuenta(){
+        return numCuenta;
+    }
+}
+class Tarjeta extends Pago{
+    private String tipo;
+    private String numTransaccion;
+    public Tarjeta(String t, String nt){
+        tipo=t;
+        numTransaccion=nt;
+        
+    }
+    public String getTipo(){
+        return tipo;
+    }
+    public String getNumTransaccion(){
+        return numTransaccion;
+    }
+}
 public class Main {
     public static void main(String[] args) {
         Direccion a = new Direccion("Av Parques de Carriel");
