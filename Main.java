@@ -78,7 +78,8 @@ class Efectivo extends Pago{
 class Transferencia extends Pago{
     private String banco;
     private String numCuenta;
-    public Transferencia(String b, String c){
+    public Transferencia(float m , Date f, String b, String c){
+        super(m,f);
         banco=b;
         numCuenta=c;
     }
@@ -92,7 +93,8 @@ class Transferencia extends Pago{
 class Tarjeta extends Pago{
     private String tipo;
     private String numTransaccion;
-    public Tarjeta(String t, String nt){
+    public Tarjeta(float m, Date f, String t, String nt){
+        super(m,f);
         tipo=t;
         numTransaccion=nt;
         
