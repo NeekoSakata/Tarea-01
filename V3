@@ -1,4 +1,4 @@
-     import java.util.Date;
+import java.util.Date;
 class Direccion{
     public Direccion(String a){
         direccion = a;
@@ -66,6 +66,10 @@ class DetalleOrden{
     public float calcPeso(){
         return Ar.getPeso() * cantidad;
     }
+
+    public int getCantidad() {
+        return cantidad;
+    }
     private int cantidad;
     private Articulo Ar;
 }
@@ -79,6 +83,15 @@ class OrdenCompra {
 
     public float calcPrecio() {
         return detalleOrden.calcPrecio();
+    }
+    public float calcPrecioSinIVA() {
+        return detalleOrden.calcPrecioSinIVA();
+    }
+    public float calcIVA() {
+        return detalleOrden.calcIVA();
+    }
+    public float calcPeso() {
+        return detalleOrden.calcPeso();
     }
 
     public Date getFecha() {
