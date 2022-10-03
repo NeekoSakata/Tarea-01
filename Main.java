@@ -112,9 +112,10 @@ abstract class Pago {
     private Date fecha;
     private OrdenCompra costo;
 
-    public Pago(float m, Date f) {
+    public Pago(float m, Date f, OrdenCompra c) {       //cambio 1
         monto = m;
         fecha = f;
+        costo = c;
     }
 
     public float getMonto() {
@@ -124,15 +125,17 @@ abstract class Pago {
     public Date getFecha() {
         return fecha;
     }
+    public float getCosto(){
+        return costo.calcPrecio();
+    }
 }
 
 class Efectivo extends Pago{
-    private OrdenCompra costo;             //Decidi usar una instanciaa de OrdenCompra para poder sacar el coste en cuestiony restarle a monto para obtener el vuelto.(falta funcion OrdenCompra)
     public Efectivo(float m, Date f, OrdenCompra c){
         super(m,f,c);
     }
-    public float calcDevolucion(float monto, OrdenCompra costo ){
-        return super.monto - super.OrdenCompra.calcPrecio();
+    public float calcDevolucion(){
+        return getMonto() - getCosto();
 
     }
 }
@@ -141,10 +144,10 @@ class Transferencia extends Pago {
     private String banco;
     private String numCuenta;
 
-    public Transferencia(float m, Date f, String b, String c) {
-        super(m, f);
+    public Transferencia(float m, Date f, String b, String nc, OrdenCompra c) {
+        super(m, f, c);
         banco = b;
-        numCuenta = c;
+        numCuenta = nc;
     }
 
     public String getBanco() {
@@ -160,8 +163,8 @@ class Tarjeta extends Pago {
     private String tipo;
     private String numTransaccion;
 
-    public Tarjeta(float m, Date f, String t, String nt) {
-        super(m, f);
+    public Tarjeta(float m, Date f, String t, String nt, OrdenCompra c) {
+        super(m, f, c);
         tipo = t;
         numTransaccion = nt;
     }
@@ -212,6 +215,11 @@ public class Main {
         System.out.println(yo.getNombre() + "\n" + yo.getRut());
         Articulo b = new Articulo(0.65f, "Botella de agua", "Tiene agua", 9.99f);
         System.out.println(b.getPeso() + "\n" + b.getNombre() + "\n" + b.getDescripcion() + "\n" + b.getPrecio());
-        Efectivo p1 = new Efectivo(10000)
+        Date d = new Date(122,5,5);
+        System.out.println(d);
+        OrdenCompra c = new OrdenCompra(d,"Completado",54,55,"Papa","Es un papa",9500); // Date a, String b, int f, float g, String c, String d, float e
+        Efectivo p1 = new Efectivo(10000,d,c);
+        System.out.println(p1.calcDevolucion());
+
     }
 }
