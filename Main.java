@@ -110,6 +110,7 @@ class OrdenCompra {
 abstract class Pago {
     private float monto;
     private Date fecha;
+    private OrdenCompra costo;
 
     public Pago(float m, Date f) {
         monto = m;
@@ -125,18 +126,17 @@ abstract class Pago {
     }
 }
 
-/*
 class Efectivo extends Pago{
     private OrdenCompra costo;             //Decidi usar una instanciaa de OrdenCompra para poder sacar el coste en cuestiony restarle a monto para obtener el vuelto.(falta funcion OrdenCompra)
-    public Efectivo(OrdenCompra co){
-        costo=co;
+    public Efectivo(float m, Date f, OrdenCompra c){
+        super(m,f,c);
     }
     public float calcDevolucion(float monto, OrdenCompra costo ){
-        return super.monto - OrdenCompra.calcPrecio();
+        return super.monto - super.OrdenCompra.calcPrecio();
 
     }
 }
-*/
+
 class Transferencia extends Pago {
     private String banco;
     private String numCuenta;
@@ -174,7 +174,36 @@ class Tarjeta extends Pago {
         return numTransaccion;
     }
 }
-
+class DocTributario{
+    private String numero;
+    private String rut;
+    private Date fecha;
+    public DocTributario(String n, String r, Date f){
+        numero = n;
+        rut = r;
+        fecha = f;
+    }
+    public String getNumero(){
+        return numero;
+    }
+    public String getRut(){
+        return rut;
+    }
+    public Date getFecha(){
+        return fecha;
+    }
+}
+class Boleta extends DocTributario{
+    public Boleta(String n, String r, Date f){
+        super(n,r,f);
+    }
+}
+class Factura extends DocTributario{
+    public Factura(String n, String r, Date f){
+        super(n,r,f);
+        
+    }
+}
 public class Main {
     public static void main(String[] args) {
         Direccion a = new Direccion("Av Parques de Carriel");
@@ -183,5 +212,6 @@ public class Main {
         System.out.println(yo.getNombre() + "\n" + yo.getRut());
         Articulo b = new Articulo(0.65f, "Botella de agua", "Tiene agua", 9.99f);
         System.out.println(b.getPeso() + "\n" + b.getNombre() + "\n" + b.getDescripcion() + "\n" + b.getPrecio());
+        Efectivo p1 = new Efectivo(10000)
     }
 }
