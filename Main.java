@@ -136,7 +136,7 @@ class Efectivo extends Pago{
     }
     public float calcDevolucion(){
         return getMonto() - getCosto();
-
+        //Nota: Si el costo es mayor al monto queda en negativo, dejamos esto así para representar que el comprador queda debiendo dinero
     }
 }
 
@@ -204,7 +204,7 @@ class Boleta extends DocTributario{
 class Factura extends DocTributario{
     public Factura(String n, String r, Date f){
         super(n,r,f);
-        
+
     }
 }
 public class Main {
@@ -217,7 +217,7 @@ public class Main {
         System.out.println(b.getPeso() + "\n" + b.getNombre() + "\n" + b.getDescripcion() + "\n" + b.getPrecio());
         Date d = new Date(122,5,5);
         System.out.println(d);
-        OrdenCompra c = new OrdenCompra(d,"Completado",54,55,"Papa","Es un papa",9500); // Date a, String b, int f, float g, String c, String d, float e
+        OrdenCompra c = new OrdenCompra(d,"Completado",54,55,"Papa","Es un papa",9500); // Date as, String b, int f, float g, String c, String d, float e
         Efectivo p1 = new Efectivo(10000,d,c);
         System.out.println(p1.calcDevolucion());
 
